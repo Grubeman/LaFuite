@@ -5,6 +5,7 @@ import Register from "./pages/Register"
 import Home from "./pages/Home"
 import NotFound from "./pages/NotFound"
 import ProtectedRoute from "./components/ProtectedRoute"
+import BasicExample from "./components/NavBar.jsx";
 
 function Logout() {
   localStorage.clear()
@@ -18,6 +19,8 @@ function RegisterAndLogout() {
 
 function App() {
   return (
+      <div>
+      <BasicExample></BasicExample>
     <BrowserRouter>
       <Routes>
         <Route
@@ -34,6 +37,7 @@ function App() {
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
+      </div>
   )
 }
 export default App

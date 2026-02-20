@@ -6,6 +6,7 @@ from django_enum import EnumField
 #models import
 from django.contrib.auth.models import User
 from api.models.universe import Universe
+from api.models.vehicles.starship import Starship
 
 class PlaySessionStageEnum(models.IntegerChoices):
         NEW   = 0, "New play session"
@@ -19,7 +20,4 @@ class PlaySession(models.Model):
     #Foreign keys
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     universe = models.ForeignKey(Universe, on_delete=models.CASCADE, null=False)
-
-    @classmethod
-    def create(cls, universe, user):
-        return PlaySession.objects.create(user=user, universe=universe, stage_type=StageType.get_by_label("NewGame"))
+    starship = models.ForeignKey(Starship, on_delete=models.CASCADE, null=True, blank=True)

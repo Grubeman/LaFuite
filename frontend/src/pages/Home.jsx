@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../api";
 import Playsession from "../components/Playsession";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 function Home() {
     const [playsessions, setPlaysessions] = useState([])
@@ -19,11 +21,20 @@ function Home() {
            })
            .catch((err) => alert(err))
     }
-
-    const createPlaysession = (e) => {
-        e.preventDefault();
+    const deletePlaysession = (id) => {
         api
-            .post("api/playsessions/create")
+            .delete(`api/playsessions/delete/${id}/`)
+            .then((res) => {
+                if (res.status === 204) console.log(`Playsession {id} deleted`)
+                else console.log("Error when deleting play session")
+                getPlaysessions()
+            })
+           .catch((err) => alert(err))
+    }
+
+    const createPlaysession = () => {
+        api
+            .post("api/playsessions/create/")
             .then((res) => {
                 if (res.status === 201) console.log("New play session created")
                 else console.log("Error when creating play session")
@@ -37,15 +48,23 @@ function Home() {
             Play sessions list
             {
             playsessions.map(
-                (ps) => <Playsession playsession={ps} key={ps.id}></Playsession>
+                (ps) => <Playsession playsession={ps} onDelete={deletePlaysession} key={ps.id}></Playsession>
             )}
+            <Card style={{ width: '18rem' }}>
+                <Card.Body>
+                    <Card.Title>New Session</Card.Title>
+                    <Button variant="primary" className="playsession-create" onClick={() => createPlaysession()}>Create</Button>
+                </Card.Body>
+            </Card>
             </div>
     } else {
         return <div>
-            No play sessions detected
-            <form onSubmit={createPlaysession}>
-                <input type="submit" value="Submit"></input>
-            </form>
+            <Card style={{ width: '18rem' }}>
+                <Card.Body>
+                    <Card.Title>New Session</Card.Title>
+                    <Button variant="primary" className="playsession-create" onClick={() => createPlaysession()}>Create</Button>
+                </Card.Body>
+            </Card>
         </div>
     }
 
