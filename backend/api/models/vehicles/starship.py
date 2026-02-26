@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from .hull import Hull
+from .fleet import Fleet
 
 
 class Starship(models.Model):
@@ -13,4 +14,7 @@ class Starship(models.Model):
 
     # Foreign keys
     hull = models.ForeignKey(Hull, on_delete=models.CASCADE, null=False)
+    fleet = models.ForeignKey(Fleet, on_delete=models.CASCADE, null=True, blank=True, related_name="starships")
+
+
 

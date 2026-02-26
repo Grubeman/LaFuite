@@ -7,8 +7,8 @@ from api.models.vehicles.hull import Hull
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id", "username", "password"]
-        extra_kwargs = {"password": {"write_only": True}}
+        fields = ["id", "name", "hull"]
+        extra_kwargs = {"hull": {"read_only": True}}
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
@@ -24,11 +24,12 @@ class PlaySessionSerializer(serializers.ModelSerializer):
             "created_at": {"read_only": True},
             "starship": {"read_only": True}
             }
+        depth = 1
 
     def create(self, validated_data):
         # Get a default hull for the starship (first hull available)
         default_hull = Hull.objects.first()
-
+        print("Default hull for starship:", default_hull.id if default_hull else "No hull found")
         if not default_hull:
             raise serializers.ValidationError("No hull available to create a starship")
 

@@ -7,9 +7,6 @@ import Card from 'react-bootstrap/Card';
 function Home() {
     const [playsessions, setPlaysessions] = useState([])
 
-    useEffect(() => {
-        getPlaysessions()
-    }, [])
 
     const getPlaysessions = () => {
         api
@@ -21,6 +18,11 @@ function Home() {
            })
            .catch((err) => alert(err))
     }
+
+    useEffect(() => {
+        getPlaysessions()
+    }, [])
+
     const deletePlaysession = (id) => {
         api
             .delete(`api/playsessions/delete/${id}/`)

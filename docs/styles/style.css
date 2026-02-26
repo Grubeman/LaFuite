@@ -1,3 +1,25 @@
+/* Container Bootstrap avec gap */
+.container {
+    gap: 1em;
+}
+
+.container h2 {
+    margin: 0;
+}
+
+/* Utilise les classes Bootstrap text-start, text-center, text-end */
+.text-start {
+    text-align: left !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-end {
+    text-align: right !important;
+}
+
 .clickMe {
     -moz-appearance: button;
     -ms-appearance: button;

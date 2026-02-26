@@ -3,7 +3,7 @@ from rest_framework import generics
 from api.serializers.game import PlaySessionSerializer, UserSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from api.models.game.playsession import PlaySession
-
+from api.models.universe import Universe
 
 class PlaysessionListView(generics.ListAPIView):
     queryset = PlaySession.objects.all()
