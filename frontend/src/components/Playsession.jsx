@@ -4,7 +4,16 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import api from "../api.js";
 
+import { useNavigate } from "react-router-dom";
+
 function Playsession({playsession, onDelete}) {
+
+    let navigate = useNavigate();
+    const routeChange = () =>{
+        let path = `play`;
+        navigate(path);
+    }
+
     const formattedDate = new Date(playsession.created_at).toLocaleDateString("fr-FR")
 
     return (
@@ -18,7 +27,8 @@ function Playsession({playsession, onDelete}) {
                     <p className="playsession-starship">Starship {playsession.starship?.name ?? "—"}</p>
 
                 </Card.Body>
-                <Button variant="primary" className="playsession-delete" onClick={() => onDelete(playsession.id)}>Delete</Button>
+                <Button variant="primary" className="playsession-play" onClick={routeChange}>Play</Button>
+                <Button variant="danger" className="playsession-delete" onClick={() => onDelete(playsession.id)}>Delete</Button>
             </Card.Body>
         </Card>
     );

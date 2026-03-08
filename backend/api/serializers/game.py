@@ -7,8 +7,7 @@ from api.models.vehicles.hull import Hull
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id", "name", "hull"]
-        extra_kwargs = {"hull": {"read_only": True}}
+        fields = ["id", "username"]
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)

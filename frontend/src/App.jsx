@@ -3,9 +3,11 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Home from "./pages/Home"
+import Play from "./pages/Play"
 import NotFound from "./pages/NotFound"
 import ProtectedRoute from "./components/ProtectedRoute"
-import BasicExample from "./components/NavBar.jsx";
+import AppNavBar from "./components/NavBar.jsx";
+import StartGame from "./pages/StartGame.jsx";
 
 function Logout() {
   localStorage.clear()
@@ -20,7 +22,7 @@ function RegisterAndLogout() {
 function App() {
   return (
       <div>
-      <BasicExample></BasicExample>
+      <AppNavBar></AppNavBar>
     <BrowserRouter>
       <Routes>
         <Route
@@ -30,7 +32,17 @@ function App() {
               <Home />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<StartGame />} />
+          <Route
+              path="play"
+              element={
+                <ProtectedRoute>
+                  <Play />
+                </ProtectedRoute>
+              }
+          />
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<RegisterAndLogout />} />
