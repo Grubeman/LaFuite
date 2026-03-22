@@ -8,6 +8,8 @@ import NotFound from "./pages/NotFound"
 import ProtectedRoute from "./components/ProtectedRoute"
 import AppNavBar from "./components/NavBar.jsx";
 import StartGame from "./pages/StartGame.jsx";
+import StarSystem from "./pages/StarSystem.jsx";
+import Planet from "./pages/Planet.jsx";
 
 function Logout() {
   localStorage.clear()
@@ -35,13 +37,29 @@ function App() {
         >
           <Route index element={<StartGame />} />
           <Route
-              path="play"
+              path="play/:universe_id"
               element={
                 <ProtectedRoute>
                   <Play />
                 </ProtectedRoute>
               }
           />
+          <Route
+                path="play/starsystem/:id"
+                element={
+                    <ProtectedRoute>
+                        <StarSystem />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="play/planet/:id"
+                element={
+                    <ProtectedRoute>
+                        <Planet />
+                    </ProtectedRoute>
+                }
+            />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />

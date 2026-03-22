@@ -8,4 +8,6 @@ urlpatterns = [
     path("playsessions/delete/<uuid:pk>/", gv.PlaysessionDeleteView.as_view(), name="playsession-delete"),
 
     path("starship/<uuid:pk>/", vv.StarshipApiView.as_view(), name="starship-view"),
+    path("starsystems/<uuid:universe_id>/", uv.StarSystemListView.as_view(), name="starsystem-list"),
+    path("planets/<uuid:star_system_id>/", uv.PlanetListView.as_view(), name="planet-list"),
 ]

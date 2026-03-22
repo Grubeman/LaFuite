@@ -6,11 +6,12 @@ import api from "../api.js";
 
 import { useNavigate } from "react-router-dom";
 
-function Playsession({playsession, onDelete}) {
+function PlaysessionCard({playsession, onDelete}) {
 
     let navigate = useNavigate();
-    const routeChange = () =>{
-        let path = `play`;
+    const routeChange = (universe_id) =>{
+        console.log(universe_id)
+        let path = `play/`+ universe_id + "/";
         navigate(path);
     }
 
@@ -27,11 +28,11 @@ function Playsession({playsession, onDelete}) {
                     <p className="playsession-starship">Starship {playsession.starship?.name ?? "—"}</p>
 
                 </Card.Body>
-                <Button variant="primary" className="playsession-play" onClick={routeChange}>Play</Button>
+                <Button variant="primary" className="playsession-play" onClick={() =>routeChange(playsession.universe.id)}>Play</Button>
                 <Button variant="danger" className="playsession-delete" onClick={() => onDelete(playsession.id)}>Delete</Button>
             </Card.Body>
         </Card>
     );
 }
 
-export default Playsession
+export default PlaysessionCard

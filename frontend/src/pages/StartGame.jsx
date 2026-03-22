@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../api";
-import Playsession from "../components/Playsession";
+import PlaysessionCard from "../components/PlaysessionCard.jsx";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Outlet } from "react-router-dom";
@@ -51,7 +51,7 @@ function StartGame() {
             Play sessions list
             {
             playsessions.map(
-                (ps) => <Playsession playsession={ps} onDelete={deletePlaysession} key={ps.id}></Playsession>
+                (ps) => <PlaysessionCard playsession={ps} onDelete={deletePlaysession} key={ps.id}></PlaysessionCard>
             )}
             <Card style={{ width: '18rem' }}>
                 <Card.Body>
