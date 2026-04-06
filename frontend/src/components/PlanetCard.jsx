@@ -23,7 +23,7 @@ function PlanetCard({planet}) {
 
                 </Card.Body>
 
-                <Button variant="primary" className="planet-go" onClick={routeChange}>Go</Button>
+                <Button variant="primary" className="planet-go" onClick={routeChange}>Land</Button>
             </Card.Body>
         </Card>
     );
