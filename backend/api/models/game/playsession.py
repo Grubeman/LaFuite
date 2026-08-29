@@ -11,9 +11,16 @@ from api.models.vehicles.starship import Starship
 class PlaySessionStageEnum(models.IntegerChoices):
         NEW   = 0, "New play session"
 
+
+class PlaySessionLocationEnum(models.IntegerChoices):
+    SOLAR_SYSTEM = 0, "Solar system"
+    OUTPOST = 1, "Outpost"
+
 class PlaySession(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     stage = EnumField(PlaySessionStageEnum, default=PlaySessionStageEnum.NEW)
+    location = EnumField(PlaySessionLocationEnum, default=PlaySessionLocationEnum.SOLAR_SYSTEM)
+    location_id = models.UUIDField(default=None, null=True)
 
     created_at = models.DateTimeField(default=timezone.now, editable=False)
 

@@ -1,5 +1,4 @@
-from django.db import migrations, models
-import django.db.models.deletion
+from django.db import migrations
 
 
 class Migration(migrations.Migration):
@@ -8,10 +7,4 @@ class Migration(migrations.Migration):
         ("api", "0006_hull_hullslot"),
     ]
 
-    operations = [
-        migrations.AddField(
-            model_name="hullslot",
-            name="installed_module",
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to="api.VehicleModule"),
-        ),
-    ]
+    operations = []

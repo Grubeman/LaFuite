@@ -10,6 +10,7 @@ import AppNavBar from "./components/NavBar.jsx";
 import StartGame from "./pages/StartGame.jsx";
 import StarSystem from "./pages/StarSystem.jsx";
 import Planet from "./pages/Planet.jsx";
+import Outpost from "./pages/Outpost.jsx";
 
 function Logout() {
   localStorage.clear()
@@ -57,6 +58,14 @@ function App() {
                 element={
                     <ProtectedRoute>
                         <Planet />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="play/outpost/:id"
+                element={
+                    <ProtectedRoute>
+                        <Outpost />
                     </ProtectedRoute>
                 }
             />

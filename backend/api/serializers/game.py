@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
 class PlaySessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlaySession
-        fields = ["id", "user", "universe", "created_at", "stage", "starship"]
+        fields = ["id", "user", "universe", "created_at", "stage", "starship", "location", "location_id"]
         extra_kwargs = {
             "user": {"read_only": True},
             "universe": {"read_only": True},

@@ -1,34 +1,78 @@
 import { useParams } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import * as d3 from "d3";
 
 
 function Planet() {
     const { id } = useParams();
     const svgRef = useRef(null);
+    const data = useMemo(
+        () => [
+            {
+                x: 100,
+                y: 125,
+                width: 100,
+                height: 50,
+                fill: "blue"
+            },
+            {
+                x: 150,
+                y: 200,
+                width: 100,
+                height: 50,
+                fill: "red"
+            }
+        ],
+        []
+    );
+    const controlledRect = data[data.length - 1];
     const [angle, setAngle] = useState(0);
-    const [pos, setPos] = useState({ x: 100, y: 125 });
+    const [pos, setPos] = useState({ x: controlledRect.x, y: controlledRect.y });
+    const [controlledSize, setControlledSize] = useState({
+        width: controlledRect.width,
+        height: controlledRect.height
+    });
 
     // Crée le rectangle une seule fois avec D3
     useEffect(() => {
         const svg = d3.select(svgRef.current);
         svg.selectAll("*").remove(); // nettoie avant de (re)créer
-        svg.append("rect")
-            .attr("x", 100)
-            .attr("y", 125)
-            .attr("width", 100)
-            .attr("height", 50)
-            .attr("fill", "red");
-    }, []);
+        svg
+            .selectAll("rect")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x", (d) => d.x)
+            .attr("y", (d) => d.y)
+            .attr("width", (d) => d.width)
+            .attr("height", (d) => d.height)
+            .attr("fill", (d) => d.fill)
+            .attr("class", (_, i) => (i === data.length - 1 ? "controlled-rect" : "static-rect"))
+            .on("click", function (event, d) {
+                svg.selectAll("rect")
+                    .classed("controlled-rect", false)
+                    .classed("static-rect", true);
+
+                d3.select(event.currentTarget)
+                    .classed("controlled-rect", true)
+                    .classed("static-rect", false);
+
+                setPos({ x: d.x, y: d.y });
+                setControlledSize({ width: d.width, height: d.height });
+            });
+    }, [data]);
 
     // Met à jour position et rotation via D3
     useEffect(() => {
         d3.select(svgRef.current)
-            .select("rect")
+            .select(".controlled-rect")
             .attr("x", pos.x)
             .attr("y", pos.y)
-            .attr("transform", `rotate(${angle}, ${pos.x + 50}, ${pos.y + 25})`);
-    }, [angle, pos]);
+            .attr(
+                "transform",
+                `rotate(${angle}, ${pos.x + controlledSize.width / 2}, ${pos.y + controlledSize.height / 2})`
+            );
+    }, [angle, pos, controlledSize.height, controlledSize.width]);
 
     // Touches : A/E pour rotation, flèches pour translation
     useEffect(() => {
